@@ -1,0 +1,72 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>分布式水位态势感知预警系统</title>
+    <style th:replace="common::common_header"></style>
+
+    <link rel="stylesheet" href="css/history.css" th:href="@{/static/css/history.css}">
+</head>
+<body>
+<!--导航栏-->
+<div th:replace="common::header"></div>
+<!--侧边栏-->
+<!--<div th:replace="common::slider"></div>-->
+
+<div id="main-content">
+    <div class="outBox">
+        <div class="selectForm">
+            <div class="leftSelectForm">
+                <div class="ui form">
+                    <div class="field" id="leftInput">
+                        <select class="ui search dropdown">
+                            <option value="">选择设备ID以筛选</option>
+                            <option th:each="devId:${allDevId}" th:text="${devId}" th:value="${devId}"></option>
+                            <option value="地区">选择设备ID以筛选</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="rightSelectForm">
+                <div class="ui form">
+                    <div class="field" id="rightInput">
+                        <select class="ui search dropdown">
+                            <option value="">选择地区以筛选</option>
+                            <option th:each="position:${allDevPosition}" th:text="${position}" th:value="${position}"></option>
+                            <option value="地区">选择地区以筛选</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chartOut" id="chartsOut">
+            <div th:each="index:${#numbers.sequence(1, allDevStatus.size()%2==0?allDevStatus.size()/2:(allDevStatus.size()/2+1))}">
+                <div class="oneLine">
+                    <div class="leftChart" style="overflow-x: hidden">
+                        <div class="title-panel"><a th:href="@{'detail?devId='+${allDevStatus.get(2*(index-1)).devId}}" th:text="${allDevStatus.get(2*(index-1)).devId}"></a> </div>
+                        <div class="panel line charts" th:id="lineTest+${2*(index-1)}"></div>
+                    </div>
+                    <div class="rightChart" style="overflow-x: hidden" th:if="${index!=allDevStatus.size()/2+1}">
+                        <div class="title-panel"><a th:href="@{'detail?devId='+${allDevStatus.get(2*(index-1)+1).devId}}" th:text="${allDevStatus.get(2*(index-1)+1).devId}"></a> </div>
+                        <div class="panel line charts" th:id="lineTest+${2*(index-1)+1}"></div>
+                    </div>
+                    <div class="rightChart" style="overflow-x: hidden;background-color: rgba(0,0,0,0);box-shadow: none" th:if="${index==allDevStatus.size()/2+1}">
+                        <div class="title-panel"><a href="#"></a></div>
+                        <div class="panel line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="noneBox" style="display: none">
+    <span id="leftResizeFlag">false</span>
+    <form method="post" id="searchForm">
+        <input name="findReason" id="findReason">
+    </form>
+</div>
+</body>
+<!--<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js" type="text/javascript"></script>-->
+<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/echarts/5.3.0-rc.1/echarts.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="javascript/history.js" th:src="@{/static/js/history.js}"></script>
+</html>

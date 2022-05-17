@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="common_header">
+
+
+  <!--  部署解  -->
+<!--  <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js" type="text/javascript"></script>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" type="text/javascript"></script>-->
+
+  <link href="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/semantic-ui/2.4.1/semantic.min.js" type="text/javascript"></script>
+
+
+<!--      <link rel="stylesheet" href="css/semantic-ui/semantic.min.css" th:href="@{/static/css/semantic-ui/semantic.min.css}">-->
+<!--      <script type="text/javascript" src="js/jquery-3.6.0.min.js" th:src="@{/static/js/jquery-3.6.0.min.js}"></script>-->
+<!--      <script type="text/javascript" src="js/semantic.js" th:src="@{/static/js/semantic.js}"></script>-->
+
+  <link rel="stylesheet" href="css/common.css" th:href="@{/static/css/common.css}">
+  <script type="text/javascript" src="js/common.js" th:src="@{/static/js/common.js}"></script>
+
+</head>
+<body>
+<div th:fragment="header" id="header-outline">
+  <div class="ui menu">
+    <div class="placeholder-div">
+      <a th:href="@{/}">水位感知预警系统</a>
+    </div>
+
+    <div class="ui dropdown item">
+      <div class="text">页面管理</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="header-a item" th:href="@{/}">首页</a>
+      </div>
+    </div>
+
+    <div class="ui dropdown item">
+      <div class="text">设备状态</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="header-a item" th:href="@{/device/history/dev_level}">历史水位 </a>
+        <a class="header-a item" th:href="@{/device/history/dev_temperature}">历史温度 </a>
+        <a class="header-a item" th:href="@{/device/history/dev_humidity}">历史湿度 </a>
+      </div>
+    </div>
+
+    <div class="ui dropdown item">
+      <div class="text">用户管理</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="header-a item" th:href="@{/user/getAllUser.do}">用户授权  </a>
+      </div>
+
+    </div>
+
+    <div class="ui dropdown item">
+      <div class="text">项目管理</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="header-a item" th:href="@{/}">集成  </a>
+      </div>
+
+    </div>
+
+    <div class="ui dropdown item right" tabindex="0">
+      <img id="header-item-img" sec:authorize="isAuthenticated()" th:src="@{/static/img/user.jpg}" alt="userImage">
+      <span id="header-item-name" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+      <span id="header-item-name-none" sec:authorize="!isAuthenticated()">未登录</span>
+      <i class="dropdown icon"></i>
+      <div class="menu" tabindex="-1" id="header-info">
+        <div class="item" id="header-info-first">
+          <div id="header-userImg"><a href="#"><img th:src="@{/static/img/user.jpg}" alt="userImage" /></a></div>
+          <span id="header-userName" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+          <span id="header-userName-none" sec:authorize="!isAuthenticated()">未登录</span>
+          <span>最后登录：12:00 PM</span>
+        </div>
+        <div class="divider"></div>
+        <div class="item" id="header-info-passwordChange">
+          <a th:href="@{/logout}">信息修改</a>
+        </div>
+        <div class="item" id="header-info-logout">
+          <a sec:authorize="isAuthenticated()" th:href="@{/logout}">注销</a>
+          <a sec:authorize="!isAuthenticated()" th:href="@{/login}">登录</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div th:fragment="slider">
+  <div class="ui vertical sidebar menu left overlay visible" id="toc">
+
+    <div class="item ui styled accordion slider-mux-content">
+      <div class="title slider-fa-text active">
+        <i class="dropdown icon"></i>
+        页面管理
+      </div>
+      <div class="content active">
+        <p><a class="item slider-item-text apage active " th:href="@{/}">首页 </a></p>
+      </div>
+    </div>
+    <div class="item ui styled accordion slider-mux-content">
+      <div class="title slider-fa-text">
+        <i class="dropdown icon"></i>
+        设备状态
+      </div>
+      <div class="content">
+        <p><a class="item slider-item-text apage" th:href="@{/device/history/dev_level}">历史水位 </a></p>
+        <p><a class="item slider-item-text apage" th:href="@{/device/history/dev_temperature}">历史温度 </a></p>
+        <p><a class="item slider-item-text apage" th:href="@{/device/history/dev_humidity}">历史湿度 </a></p>
+      </div>
+    </div>
+    <div class="item ui styled accordion slider-mux-content">
+      <div class="title slider-fa-text">
+        <i class="dropdown icon"></i>
+        用户管理
+      </div>
+      <div class="content">
+        <p><a class="item slider-item-text apage" th:href="@{/user/getAllUser.do}">用户授权 </a></p>
+      </div>
+    </div>
+    <div class="item ui styled accordion slider-mux-content">
+      <div class="title slider-fa-text">
+        <i class="dropdown icon"></i>
+        项目管理
+      </div>
+      <div class="content">
+        <p><a class="item slider-item-text apage" href="#">集成 </a></p>
+        <p><a class="item slider-item-text apage" href="#">构建工具 </a></p>
+        <p><a class="item slider-item-text apage" href="#">配置 </a></p>
+        <p><a class="item slider-item-text apage" href="#">词汇表 </a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

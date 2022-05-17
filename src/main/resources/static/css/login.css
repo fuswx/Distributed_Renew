@@ -1,0 +1,222 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+@import url('https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/bootstrap/4.5.3/css/bootstrap.min.css');
+
+@keyframes gradient-move-from {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
+@keyframes gradient-move-to {
+    0% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #7a7676;
+    line-height: 20px;
+    overflow-y: hidden;
+    font-size: 14px;
+    animation-iteration-count:1;
+    background: linear-gradient(185deg, #f3f3f3 20%, #51a478 100%) fixed;
+    background-size: 200% 200%;
+}
+
+input, select, textarea {
+    font-family: 'Open Sans', sans-serif;
+    color: #767676;
+}
+
+a {
+    color: #65CEA7;
+}
+
+a:focus, a:active, a:hover {
+    outline: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    color: #353F4F;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.mtop10 {
+    margin-top: 10px;
+}
+
+hr {
+    border-color: #ddd;
+}
+
+/*-------------------------------
+            登录页面
+-------------------------------*/
+
+.login-body {
+    background-size: cover;
+    background: #51a478 url("../images/bg.jpeg") no-repeat fixed center;
+    width: 100%;
+    height: 100%;
+}
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.form-signin {
+    min-width: 330px;
+    width: 24%;
+    margin: 10% auto;
+    background: #fff;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    display: none;
+    position: absolute;
+}
+
+.form-signin .form-signin-heading {
+    margin: 0;
+    padding: 25px 15px 15px 5px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.sign-title {
+    font-size: 24px;
+    color: #51a478;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.sign-title-small {
+    font-size: 18px;
+    color: #51a478;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.form-signin .checkbox {
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    position: absolute;
+    bottom: -50px;
+    width: 100%;
+    left: 0;
+}
+
+.form-signin .checkbox a, .form-signin .checkbox a:hover {
+    color: #fff;
+}
+
+.form-signin .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin input[type="text"], .form-signin input[type="password"] {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #eaeaec;
+    background: #eaeaec;
+    box-shadow: none;
+    font-size: 12px;
+}
+
+.form-signin .btn-login {
+    background: #51a478;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+    margin: 20px 0 5px;
+    padding: 5px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.8s linear;
+    font-size: 25px;
+}
+.form-signin .btn-login:hover {
+    background: #5191a4;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.form-signin p {
+    text-align: left;
+    color: #b6b6b6;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.form-signin a, .form-signin a:hover {
+    color: #51a478;
+}
+
+.form-signin a:hover {
+    text-decoration: underline;
+}
+
+.login-wrap {
+    padding: 0 20px 20px;
+    position: relative;
+}
+
+.registration {
+    color: #c7c7c7;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#form-register {
+    display: none!important;
+}
+
+
+.remindLabel {
+    color: red;
+    display: none;
+    font-size:14px;
+    font-weight: 700
+}
+
+.labelBox {
+    height: 40px;
+}
+
+

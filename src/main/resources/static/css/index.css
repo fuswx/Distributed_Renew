@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+a {
+    text-decoration: none;
+    color: #f9f9f9;
+}
+
+body,html {
+    height: 100%;
+}
+
+#main-content {
+    width: 100%;
+    height: 94%;
+    padding: 0!important;
+}
+
+#map-out-box {
+    width: 100%;
+    height: 100%;
+}
+#container {
+    width: 100%;
+    height: 100%;
+}
+

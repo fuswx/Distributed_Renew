@@ -32,8 +32,8 @@ public class DeviceServiceImpl implements IDeviceService {
         for (DevAndStatus device : devices) {
             String devOnceId=formatDevId(device.getId());
             deviceMapper.createDevStatus(devOnceId);
-            deviceMapper.setDevice(new Device(device.getId(),device.getPosition(),device.getAddTime()));
-            deviceMapper.setDevStatus(new DevStatus(null,device.getId(),device.getAddTime(),device.getLastStatus().getDevLevel(), device.getLastStatus().getDevBattery(), device.getLastStatus().getDevTemperature(), device.getLastStatus().getDevHumidity()),devOnceId);
+            deviceMapper.setDevice(new Device(device.getId(),device.getPosition(),device.getLongitude(),device.getLatitude(),device.getAddTime()));
+            deviceMapper.setDevStatus(new DevStatus(null,device.getId(),device.getLastStatus().getDevLevel(), device.getLastStatus().getDevBattery(), device.getLastStatus().getDevTemperature(), device.getLastStatus().getDevHumidity(),device.getAddTime()),devOnceId);
         }
     }
 
@@ -80,7 +80,7 @@ public class DeviceServiceImpl implements IDeviceService {
         ArrayList<DevStatus> devStatusMap=new ArrayList<>();
         DevStatus devStatus=deviceMapper.getDevLastStatus(devId);
         //Long now=devStatus.getUploadTime().getTime();
-        Integer devStatusId=devStatus.getStatusId();
+        Integer devStatusId=devStatus.getId();
         for (int i = 0; i <= index-1; i++) {
             DevStatusAndId devStatusAndId =CheckZero(devId,devStatusId);
             devStatusId= devStatusAndId.getDevStatusId();
@@ -95,7 +95,7 @@ public class DeviceServiceImpl implements IDeviceService {
         LinkedHashMap<Date,Double> devStatusMap=new LinkedHashMap<>();
         DevStatus devStatus=deviceMapper.getDevLastStatus(devId);
         //Long now=devStatus.getUploadTime().getTime();
-        Integer devStatusId=devStatus.getStatusId();
+        Integer devStatusId=devStatus.getId();
         for (int i = 0; i <= index-1; i++) {
             DevStatusAndId devStatusAndId =CheckZero(devId,devStatusId);
             devStatusId= devStatusAndId.getDevStatusId();
@@ -167,6 +167,11 @@ public class DeviceServiceImpl implements IDeviceService {
     @Override
     public ArrayList<String> getAllPosition() {
         return deviceMapper.getAllPosition();
+    }
+
+    @Override
+    public ArrayList<Device> getAllDevInitStatus() {
+        return deviceMapper.getAllDevInitStatus();
     }
 
 }

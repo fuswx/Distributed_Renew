@@ -1,7 +1,13 @@
+const projectName="/Distributed/";
+
+let setMapStatusInterval=null
+//定时器内数据
+let humidityArr=[],levelArr=[],temperatureArr=[],batteryArr=[],updateTimeArr=[]
+//只有初始化数据
+let devIdArr=[],positionArr=[],locationArr=[]
 
 $(function (){
     doChange();
-    $("#main-content").css("height",$("body").css("height")-$("#header-outline").css("height"))
 })
 
 $(window).resize(function (){
@@ -10,31 +16,71 @@ $(window).resize(function (){
 function doChange(){
     makeMap()
 }
+//定时获取设备数据
+function getDevStatus(){
+    $.ajax({
+        url: projectName+"dev/getAllDevStatus",
+        dataType: 'JSON',
+        method: "post",
+        contentType: "application/json",
+        async: false,
+        success:(res)=>{
+            humidityArr=[]
+            levelArr=[]
+            temperatureArr=[]
+            batteryArr=[]
+            updateTimeArr=[]
+            for (const devStatus of res) {
+                devIdArr.push(devStatus.id)
+                humidityArr.push(devStatus.humidity)
+                levelArr.push(devStatus.level)
+                temperatureArr.push(devStatus.temperature)
+                batteryArr.push(devStatus.battery)
+                updateTimeArr.push(devStatus.upload_time)
+            }
+        },
+        fail:(res)=>{
+            console.log(res.data)
+        }
+    })
+
+}
 
 //制作中国地图
 function makeMap(){
-    //使用Loader加载
-    // AMapLoader.load({
-    //     "version": "1.4.15",   // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-    //     "key": "86bad24a3731ba1547b6be5c2a0fa967",
-    //     "AMapUI": {             // 是否加载 AMapUI，缺省不加载
-    //         "version": '1.1',   // AMapUI 缺省 1.1
-    //         "plugins":['overlay/SimpleMarker'],       // 需要加载的 AMapUI ui插件
-    //     },
-    //     "Loca":{                // 是否加载 Loca， 缺省不加载
-    //         "version": '1.3.2'  // Loca 版本，缺省 1.3.2
-    //     },
-    // }).then((AMap)=>{
-    //     const map = new AMap.Map('container');
-    //     map.addControl(new AMap.Scale());
-    //     new AMapUI.SimpleMarker({
-    //         map: map,
-    //         position: map.getCenter(),
-    //     });
-    // }).catch((e)=>{
-    //      //加载错误提示
-    //     console.log(e)
-    // });
+    $.ajax({
+        url: projectName+"dev/getAllDevInitStatus",
+        dataType: 'JSON',
+        method: "post",
+        contentType: "application/json",
+        async: false,
+        success:(res)=>{
+            devIdArr=[]
+            positionArr=[]
+            locationArr=[]
+            for (const devStatus of res) {
+                let location=[]
+                devIdArr.push(devStatus.id)
+                positionArr.push(devStatus.position)
+                location.push(devStatus.longitude)
+                location.push(devStatus.latitude)
+                locationArr.push(location)
+            }
+        },
+        fail:(res)=>{
+            console.log(res.data)
+        }
+    })
+
+    getDevStatus()
+
+    if (setMapStatusInterval!==null){
+        clearInterval(setMapStatusInterval)
+        setMapStatusInterval=null
+    }
+    setMapStatusInterval=setInterval(()=>{
+        getDevStatus()
+    },5000)
 
 
     const map = new AMap.Map('container', {
@@ -47,11 +93,7 @@ function makeMap(){
         imageSize: new AMap.Size(35, 50),
         image: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
     });
-    const locations = [
-        [113.780373, 34.757843],
-        [113.880373, 34.847843],
-        [113.53524, 34.669792]
-    ];
+    const locations = locationArr;
     const markers = [];
     for (let i = 0; i < locations.length; i++) {
         const infoWindow = new AMap.InfoWindow({
@@ -68,10 +110,21 @@ function makeMap(){
                 "</div>"
         });
         marker.on('click',function (e){
-            console.log("点")
-            var  content=
-                "<div className='infos'><div>地铁1号线紫金山路</div>\n" +
-                "<div style='margin-top: 5px'> <span style='display: none'></span><span style='display: inline-block;float: left;font-size: 12px;font-weight: 600'><span style='display: inline-block;width: 10px;height: 5px;background-color: #1b2128'></span> 200mm</span><span style='display: inline-block;float: right;font-size: 12px;font-weight: 600;color: #60b193'>水位正常</span></div></div>";
+            console.log(e)
+            const  content=
+                "<div className='infos' class='markerLabelTitle'>地铁1号线紫金山路</div>\n" +
+                "<div class='markerLabelContent'>" +
+                    "<div class='markerLabelStatus'>" +
+                        "<div class='markerLabelFirstLine'>" +
+                            "<span class='markerLabelSpan'><i class='battery full icon' style='color: #0ea432'></i> "+batteryArr[0]+"</span>" +
+                            "<span class='markerLabelSpan'><i class='thermometer full icon' style='color: red'></i> "+temperatureArr[0]+"</span>" +
+                            "<span class='markerLabelSpan'><i class='snowflake outline icon' style='color: #54c8ff'></i> "+humidityArr[0]+"</span>" +
+                        "</div>"+
+                        "<div class='markerLabelSecondLine'>" +
+                            "<span class=''><i class='umbrella icon' style='color: cornflowerblue'></i> "+levelArr[0]+"</span>" +
+                        "</div>"+
+                    "</div>" +
+                "</div>";
             infoWindow.setContent(content)
             infoWindow.open(map,this._position)
         })

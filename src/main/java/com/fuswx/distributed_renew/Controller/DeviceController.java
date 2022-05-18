@@ -2,6 +2,7 @@ package com.fuswx.distributed_renew.Controller;
 
 import com.fuswx.distributed_renew.Bean.DevAndStatus;
 import com.fuswx.distributed_renew.Bean.DevStatus;
+import com.fuswx.distributed_renew.Bean.Device;
 import com.fuswx.distributed_renew.Service.IDeviceService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,11 @@ public class DeviceController {
     @PostMapping("/dev/getAllDevStatusByReason")
     public @ResponseBody ArrayList<DevStatus> getAllDevStatusByReason(String findReason){
         return deviceService.getAllDevStatusByReason(findReason);
+    }
+
+    @PostMapping("/dev/getAllDevInitStatus")
+    public @ResponseBody ArrayList<Device> getAllDevInitStatus(){
+        return deviceService.getAllDevInitStatus();
     }
 
 }

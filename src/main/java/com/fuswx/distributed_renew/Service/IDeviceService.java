@@ -2,6 +2,7 @@ package com.fuswx.distributed_renew.Service;
 
 import com.fuswx.distributed_renew.Bean.DevAndStatus;
 import com.fuswx.distributed_renew.Bean.DevStatus;
+import com.fuswx.distributed_renew.Bean.Device;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.ArrayList;
@@ -28,4 +29,6 @@ public interface IDeviceService {
     ArrayList<String> getAllDevId();
 
     ArrayList<String> getAllPosition();
+
+    ArrayList<Device> getAllDevInitStatus();
 }

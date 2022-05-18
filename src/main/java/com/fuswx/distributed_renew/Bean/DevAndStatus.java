@@ -10,10 +10,14 @@ import java.util.Date;
 public class DevAndStatus {
     @JsonProperty("id")
     private String Id;
-    @JsonProperty("add_time")
-    private Date addTime;
     @JsonProperty("position")
     private String position;
     @JsonProperty("last_status")
     private DevStatus lastStatus;
+    @JsonProperty("longitude")
+    private Double longitude;
+    @JsonProperty("latitude")
+    private Double latitude;
+    @JsonProperty("add_time")
+    private Date addTime;
 }

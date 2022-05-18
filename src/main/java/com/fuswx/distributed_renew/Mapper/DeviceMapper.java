@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Mapper
 public interface DeviceMapper {
 
-    @Insert("insert into devices (id,position,add_time) values(#{id},#{addTime},#{position})")
+    @Insert("insert into devices (id,position,longitude,latitude,add_time) values(#{id},#{position},#{longitude},#{latitude},#{addTime})")
     void setDevice(Device device);
 
     @Update("create table ${devOnceId}(id int not null auto_increment primary key,dev_id varchar(255) not null,upload_time timestamp,dev_level double,dev_battery double,dev_temperature double, dev_humidity double);")
@@ -41,4 +41,7 @@ public interface DeviceMapper {
 
     @Select("select distinct position from devices")
     ArrayList<String> getAllPosition();
+
+    @Select("select * from devices")
+    ArrayList<Device> getAllDevInitStatus();
 }
